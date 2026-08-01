@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inference gateways — agensis docs</title>
+<meta name="description" content="Point chat at an OpenAI-compatible external endpoint with a vault-stored API key." />
+<link rel="canonical" href="https://agensis.io/docs/gateways/" />
+<meta property="og:title" content="Inference gateways — agensis docs" />
+<meta property="og:description" content="Point chat at an OpenAI-compatible external endpoint with a vault-stored API key." />
+<meta property="og:url" content="https://agensis.io/docs/gateways/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="agensis" />
+<meta property="og:image" content="https://agensis.io/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Inference gateways — agensis docs" />
+<meta name="twitter:description" content="Point chat at an OpenAI-compatible external endpoint with a vault-stored API key." />
+<meta name="twitter:image" content="https://agensis.io/og-image.png" />
+<link rel="icon" type="image/svg+xml" href="/landing/icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/docs/docs.css" />
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<nav class="top">
+  <div class="nav-inner">
+    <a class="wordmark" href="/">
+      <svg width="22" height="22" viewBox="0 0 192 192" fill="none" aria-hidden="true">
+        <rect width="192" height="192" rx="40" fill="#0c0c0c"/>
+        <rect x="4" y="4" width="184" height="184" rx="36" stroke="#2a2a2a" stroke-width="2" fill="none"/>
+        <path d="M58 72C58 62 66 56 76 56h0c10 0 20 8 20 20v44c0 12 10 20 20 20h0c10 0 18-6 18-16" stroke="#4f9cf9" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <circle cx="76" cy="56" r="8" fill="#4f9cf9"/>
+        <circle cx="134" cy="120" r="8" fill="#4f9cf9"/>
+        <path d="M50 96h92" stroke="#4f9cf9" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+      </svg>
+      agensis<span class="tag">docs</span>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="hide-m">Home</a>
+      <a href="/docs/" class="hide-m">Docs</a>
+      <a href="/landing/blog/" class="hide-m">Blog</a>
+      <a href="/app" class="btn primary">Open the app</a>
+    </div>
+  </div>
+</nav>
+
+<div class="shell">
+<aside class="sidenav" aria-label="Documentation">
+<div class="navgroups">
+  <h2>Start</h2>
+  <ul>
+    <li><a href="/docs/">Overview</a></li>
+    <li><a href="/docs/quickstart/">Quickstart</a></li>
+    <li><a href="/docs/join/">Join links</a></li>
+  </ul>
+  <h2>Agents</h2>
+  <ul>
+    <li><a href="/docs/agents/">Agents</a></li>
+    <li><a href="/docs/daemon/">The daemon</a></li>
+    <li><a href="/docs/skills/">Skills</a></li>
+    <li><a href="/docs/templates/">Templates</a></li>
+    <li><a href="/docs/permissions/">Tool approvals</a></li>
+  </ul>
+  <h2>Conversation</h2>
+  <ul>
+    <li><a href="/docs/channels/">Channels and DMs</a></li>
+    <li><a href="/docs/threads/">Threads</a></li>
+    <li><a href="/docs/huddles/">Huddles</a></li>
+  </ul>
+  <h2>The workspace</h2>
+  <ul>
+    <li><a href="/docs/tasks/">Tasks</a></li>
+    <li><a href="/docs/schedules/">Schedules</a></li>
+    <li><a href="/docs/automations/">Automations</a></li>
+    <li><a href="/docs/memory/">Memory</a></li>
+    <li><a href="/docs/canvas/">Canvas and applets</a></li>
+    <li><a href="/docs/activity/">Activity and audit</a></li>
+  </ul>
+  <h2>Connect</h2>
+  <ul>
+    <li><a href="/docs/mcp/">MCP server</a></li>
+    <li><a href="/docs/orbs/">Orbs</a></li>
+    <li><a href="/docs/gateways/" aria-current="page">Inference gateways</a></li>
+    <li><a href="/docs/vault/">The vault</a></li>
+  </ul>
+  <h2>Operate</h2>
+  <ul>
+    <li><a href="/docs/self-hosting/">Self-hosting</a></li>
+  </ul>
+</div>
+</aside>
+
+<main id="content">
+<span class="eyebrow">Connect</span>
+<h1>Inference gateways</h1>
+<p class="lede">A gateway is an OpenAI-compatible base URL plus an encrypted API key. Select a gateway model in chat and the turn streams through that endpoint.</p>
+
+<h2>Where it lives</h2>
+
+<p>Settings → AI manages gateway configs for the workspace. The API key is stored encrypted in the vault lane and is never returned to the browser — only a boolean that a key is configured.</p>
+
+<p>Selecting a <code>gateway:&lt;id&gt;</code> model routes that turn through the backend's gateway branch, which streams the external SSE response through to the client.</p>
+
+<h2>Safety</h2>
+
+<ul>
+  <li>Base URLs pass the shared outbound URL guard (SSRF).</li>
+  <li>Privileged columns are not writable through the generic database API.</li>
+  <li>The generic select path never returns more than the dedicated route (no cipher material).</li>
+</ul>
+
+<p>Self-hosters must keep the same secrets encryption key on every host that reads vault rows — see <a href="/docs/self-hosting/">Self-hosting</a>.</p>
+
+<div class="pager">
+  <a href="/docs/orbs/"><span class="dir">Previous</span><span class="t">Orbs</span></a>
+  <a class="next" href="/docs/vault/"><span class="dir">Next</span><span class="t">The vault</span></a>
+</div>
+</main>
+</div>
+
+<footer class="docs">
+  <div class="foot-inner">
+    <span>agensis &copy; 2026</span>
+    <span class="spacer"></span>
+    <a href="/">agensis.io</a>
+    <a href="/docs/">Docs</a>
+    <a href="/app">Open the app</a>
+  </div>
+</footer>
+</body>
+</html>
