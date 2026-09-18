@@ -182,7 +182,7 @@ Security issues go through [SECURITY.md](./SECURITY.md), **not** public issues.
 
 ## License
 
-Copyright (C) 2026 Jason Kneen.
+Copyright (C) 2026 Sahil Shingate.
 
 **GNU Affero General Public License v3.0 only** — see [LICENSE](./LICENSE).
 

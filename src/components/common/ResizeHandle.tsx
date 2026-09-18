@@ -55,7 +55,7 @@ export function ResizeHandle({ orientation, dragging = false, className, ...prop
       aria-orientation={vertical ? 'vertical' : 'horizontal'}
       {...props}
       className={cn(
-        'group/split absolute z-30 touch-none outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
+        'group/split absolute z-30 touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
         vertical ? 'w-3 cursor-col-resize' : 'flex h-3 items-center cursor-row-resize',
         className,
       )}

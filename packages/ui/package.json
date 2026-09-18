@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Agensis UI: shadcn-derived React primitives, consumed as TypeScript source by the Agensis app.",
   "license": "MIT",
-  "author": "Jason Kneen",
+  "author": "Sahil Shingate",
   "type": "module",
   "private": true,
   "sideEffects": [

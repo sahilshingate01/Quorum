@@ -1,10 +1,10 @@
 @agensis/ui
-Copyright (c) 2026 Jason Kneen
+Copyright (c) 2026 Sahil Shingate
 Licensed under the MIT License (see LICENSE).
 
 This package was extracted from the Agensis application (https://github.com/jasonkneen/agensis),
 which is licensed AGPL-3.0-only. The extraction and MIT relicensing of this package's contents
-is a deliberate act by Jason Kneen, the sole author and copyright holder of that code. No other
+is a deliberate act by Sahil Shingate, the sole author and copyright holder of that code. No other
 code may be copied from the AGPL portions of that repository into this package.
 
 The component primitives under src/components/ui/ derive from shadcn/ui, which is MIT licensed.
