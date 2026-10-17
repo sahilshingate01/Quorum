@@ -42,15 +42,15 @@ export function splitGlobalFlags(argv) {
   return { ok: true, flags, rest };
 }
 
-const USAGE = `agensis-ops — operator/CI client for the agensis MCP surface
+const USAGE = `quorum — operator/CI client for the Quorum MCP surface (also agensis-ops)
 
   This is a transport-only wrapper over POST /backend/mcp. It ships no server
   routes and no hand-written tool schemas: every command is built from the
-  tool list the server publishes. Agents running inside agensis already have
+  tool list the server publishes. Agents running inside Quorum already have
   these tools over MCP and do not need this.
 
 USAGE
-  agensis-ops <command> [args] [global flags]
+  quorum <command> [args] [global flags]
 
 COMMANDS
   whoami                          Which identity does this token authenticate as?
@@ -73,14 +73,14 @@ GLOBAL FLAGS
   --profile <name>    Daemon profile to read credentials from (default: "default").
   --url <url>         Backend base URL. Default: the profile's, else the Fly backend.
   --token <token>     DISCOURAGED: lands in ps output and shell history. Prefer
-                      AGENSIS_TOKEN.
+                      QUORUM_TOKEN or AGENSIS_TOKEN.
   --timeout-ms <n>    Request timeout (default 30000).
   --                  Everything after this is passed through verbatim.
 
 AUTH
-  Token:  --token, then AGENSIS_TOKEN, then AGENSIS_MCP_TOKEN, then the daemon
-          profile at ~/.agensis/daemon-profiles/<name>.json.
-  URL:    --url, then AGENSIS_MCP_URL, then AGENSIS_URL, then the profile.
+  Token:  --token, then QUORUM_TOKEN, AGENSIS_TOKEN, then QUORUM_MCP_TOKEN, AGENSIS_MCP_TOKEN, then the daemon
+          profile at ~/.quorum/daemon-profiles/<name>.json or ~/.agensis/daemon-profiles/<name>.json.
+  URL:    --url, then QUORUM_MCP_URL, AGENSIS_MCP_URL, then QUORUM_URL, AGENSIS_URL, then the profile.
 
 EXIT CODES
   0 ok   1 internal   2 usage   3 auth   4 rate limited
@@ -97,7 +97,7 @@ export async function runOpsCommand(argv, io = {}) {
   try {
     return await execute(argv, io, out, err);
   } catch (error) {
-    err(`agensis-ops: ${error?.stack || error?.message || error}`);
+    err(`quorum: ${error?.stack || error?.message || error}`);
     return EXIT.INTERNAL;
   }
 }

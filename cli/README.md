@@ -1,46 +1,46 @@
-# `agensis-ops` — operator/CI client for the agensis MCP surface
+# `@sahilshingate01/quorum` — operator/CI client for the Quorum MCP surface
 
-**This is not an agent tool.** Agents running inside agensis already receive
+**This is not an agent tool.** Agents running inside Quorum already receive
 their allowed workspace tools over MCP — the daemon injects the MCP server into
 every coding CLI it launches, so an agent doing a job today can already
 `list_channels`, `read_channel`, `post_message` and `dispatch_agent` without this
-binary. Building
-a CLI for *them* would be a second front door onto a house they are standing
-inside.
+binary.
 
 This exists for the callers that have no MCP client: **humans at a shell, CI
 jobs, and shell pipelines**. Before it, "post a build result into #releases from
 CI" meant hand-rolling a JSON-RPC envelope with `fetch` and digging the payload
-out of `result.content[0].text` — which is exactly what `scripts/_mcp_smoke.cjs`
-is, 158 lines of it, written because there was no other way to drive the surface
-from a shell.
+out of `result.content[0].text`.
 
 ## Running it
 
 ```sh
-npm run ops -- whoami
-npm run ops -- channels --limit 20
-node cli/agensis-ops.mjs read <channel-id> --limit 100
-```
+# Run directly with npx
+npx @sahilshingate01/quorum whoami
+npx @sahilshingate01/quorum channels --limit 20
 
-There is **no npm publish lane and no global install**: this package is
-`private: true`. Run it from a checkout. That is deliberate — see "Why it lives
-here".
+# Or install globally
+npm install -g @sahilshingate01/quorum
+quorum whoami
+
+# Or run from local checkout
+npm run quorum -- whoami
+node cli/quorum.mjs read <channel-id> --limit 100
+```
 
 ## Commands
 
 ```
-agensis-ops whoami                          Which identity does this token authenticate as?
-agensis-ops channels [--limit N]            List channels.
-agensis-ops read <channel-id> [--limit N]   Read recent messages.
-agensis-ops search <query>                  Search messages.
-agensis-ops post <channel-id> <content>     Post a message.
-agensis-ops dispatch <channel-id> <content> Post and wake the agents it addresses.
-agensis-ops tasks                           List tasks.
-agensis-ops agents                          List workspace agents.
-agensis-ops tools                           Every tool this token can reach, with its arguments.
-agensis-ops call <tool> [--arg value ...]   Call ANY tool. Arguments checked against its schema.
-agensis-ops help
+quorum whoami                          Which identity does this token authenticate as?
+quorum channels [--limit N]            List channels.
+quorum read <channel-id> [--limit N]   Read recent messages.
+quorum search <query>                  Search messages.
+quorum post <channel-id> <content>     Post a message.
+quorum dispatch <channel-id> <content> Post and wake the agents it addresses.
+quorum tasks                           List tasks.
+quorum agents                          List workspace agents.
+quorum tools                           Every tool this token can reach, with its arguments.
+quorum call <tool> [--arg value ...]   Call ANY tool. Arguments checked against its schema.
+quorum help
 ```
 
 Global flags: `--json`, `--human`, `--raw`, `--quiet`, `--full-ids`,

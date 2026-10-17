@@ -1,0 +1,32 @@
+{
+  "name": "@sahilshingate01/quorum",
+  "version": "0.1.2",
+  "description": "Operator and CI CLI client for Quorum MCP surface",
+  "type": "module",
+  "bin": {
+    "quorum": "quorum.mjs",
+    "quorum-ops": "quorum.mjs",
+    "agensis-ops": "agensis-ops.mjs"
+  },
+  "main": "./src/index.mjs",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "files": [
+    "quorum.mjs",
+    "agensis-ops.mjs",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Sahil Shingate",
+    "email": "sahilshingate0@gmail.com"
+  },
+  "license": "AGPL-3.0-only"
+}

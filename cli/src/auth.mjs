@@ -101,7 +101,7 @@ export async function readDaemonProfile(name, { homedir = os.homedir(), readFile
  */
 export async function resolveAuth(flags, io = {}) {
   const env = io.env || {};
-  const profileName = flags.profile || env.AGENSIS_PROFILE || 'default';
+  const profileName = flags.profile || env.QUORUM_PROFILE || env.AGENSIS_PROFILE || 'default';
 
   let token = '';
   let tokenSource = '';
@@ -109,11 +109,15 @@ export async function resolveAuth(flags, io = {}) {
   let urlSource = '';
 
   if (flags.token) { token = flags.token; tokenSource = '--token flag'; }
+  else if (env.QUORUM_TOKEN) { token = env.QUORUM_TOKEN; tokenSource = 'env QUORUM_TOKEN'; }
   else if (env.AGENSIS_TOKEN) { token = env.AGENSIS_TOKEN; tokenSource = 'env AGENSIS_TOKEN'; }
+  else if (env.QUORUM_MCP_TOKEN) { token = env.QUORUM_MCP_TOKEN; tokenSource = 'env QUORUM_MCP_TOKEN'; }
   else if (env.AGENSIS_MCP_TOKEN) { token = env.AGENSIS_MCP_TOKEN; tokenSource = 'env AGENSIS_MCP_TOKEN'; }
 
   if (flags.url) { baseUrl = flags.url; urlSource = '--url flag'; }
+  else if (env.QUORUM_MCP_URL) { baseUrl = env.QUORUM_MCP_URL; urlSource = 'env QUORUM_MCP_URL'; }
   else if (env.AGENSIS_MCP_URL) { baseUrl = env.AGENSIS_MCP_URL; urlSource = 'env AGENSIS_MCP_URL'; }
+  else if (env.QUORUM_URL) { baseUrl = env.QUORUM_URL; urlSource = 'env QUORUM_URL'; }
   else if (env.AGENSIS_URL) { baseUrl = env.AGENSIS_URL; urlSource = 'env AGENSIS_URL'; }
 
   if (!token || !baseUrl) {
@@ -129,7 +133,7 @@ export async function resolveAuth(flags, io = {}) {
   if (!token) {
     return {
       ok: false,
-      message: 'No token. Set AGENSIS_TOKEN, or run `agensis connect` to save a daemon '
+      message: 'No token. Set QUORUM_TOKEN (or AGENSIS_TOKEN), or run `quorum connect` to save a daemon '
         + `profile (looked for ${daemonProfilePath(profileName, io.homedir || os.homedir())}).`,
     };
   }

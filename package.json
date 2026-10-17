@@ -22,10 +22,14 @@
   "type": "module",
   "main": "electron/main.cjs",
   "bin": {
-    "agensis-ops": "cli/agensis-ops.mjs"
+    "agensis-ops": "cli/agensis-ops.mjs",
+    "quorum": "cli/quorum.mjs",
+    "quorum-ops": "cli/quorum.mjs"
   },
   "scripts": {
     "ops": "node cli/agensis-ops.mjs",
+    "quorum": "node cli/quorum.mjs",
+    "publish:cli": "cd cli && npm publish --access public",
     "dev": "vite",
     "build": "tsc --noEmit -p tsconfig.app.json && vite build && node scripts/finalize-static-routing.mjs",
     "lint": "eslint .",

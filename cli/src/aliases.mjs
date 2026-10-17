@@ -57,8 +57,8 @@ export function validateAliases(tools) {
       code: EXIT.USAGE,
       message: 'This CLI is out of step with the server\'s tool surface:\n  '
         + `${problems.join('\n  ')}\n`
-        + 'Use `agensis-ops tools` to see what the server actually exposes, and '
-        + '`agensis-ops call <tool> --arg value` to reach it in the meantime.',
+        + 'Use `quorum tools` to see what the server actually exposes, and '
+        + '`quorum call <tool> --arg value` to reach it in the meantime.',
     };
   }
   return { ok: true };

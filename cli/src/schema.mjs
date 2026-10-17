@@ -143,5 +143,5 @@ export function describeTool(tool) {
     const flag = `${propertyToFlag(name)}${spec.type === 'boolean' ? '' : ` <${spec.type || 'string'}>`}`;
     return required.has(name) ? flag : `[${flag}]`;
   });
-  return `agensis-ops call ${tool.name} ${parts.join(' ')}`.trim();
+  return `quorum call ${tool.name} ${parts.join(' ')}`.trim();
 }
